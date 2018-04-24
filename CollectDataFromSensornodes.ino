@@ -7,11 +7,12 @@ const char* ssid = "RaspberryBroker";
 const char* password = "12345678";
 const char* mqtt_server = "192.168.0.103";
 
+const byte numChars = 32;
+char receivedChars[numChars]; // an array to store the received data
+boolean newData = false;
+
 WiFiClient espClient;
 PubSubClient client(espClient);
-long lastMsg = 0;
-char msg[50];
-int value = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -20,7 +21,6 @@ void setup() {
 }
 
 void setup_wifi() {
-
   delay(10);
   // We start by connecting to a WiFi network
   Serial.println();
@@ -56,11 +56,6 @@ void reconnect() {
     }
   }
 }
-
-const byte numChars = 32;
-char receivedChars[numChars]; // an array to store the received data
-boolean newData = false;
-char *stringPos;
 
 void loop() {
 
